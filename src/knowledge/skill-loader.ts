@@ -90,8 +90,10 @@ export class SkillLoader {
     for (const line of block.split("\n")) {
       const match = line.match(/\|\s*(.+?)\s*\|\s*([\d.]+)\s*\|/);
       const headerLabels = ["--", "副词条", "项目", "单次最大值", "权重", "分值"];
-      if (match && !headerLabels.includes(match[1].trim())) {
-        result[match[1].trim()] = parseFloat(match[2]);
+      const key = match?.[1]?.trim();
+      const val = match?.[2];
+      if (key && val && !headerLabels.includes(key)) {
+        result[key] = parseFloat(val);
       }
     }
     return result;
